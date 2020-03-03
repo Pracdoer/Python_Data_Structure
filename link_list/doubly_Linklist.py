@@ -3,6 +3,7 @@ class Node:
     def __init__(self, data):    ## Constructor
         self.data = data
         self.next = None
+        self.perv = None
 
 
     def Get_data(self):        ## Get data
@@ -21,7 +22,7 @@ class Node:
 
 #--------------- Link List ---------------#
 
-class Circuler_LinkList:
+class doubly_LinkList:
     """docstring for ClassName"""
     def __init__(self):       # Constructor
         self.head = None
@@ -35,26 +36,29 @@ class Circuler_LinkList:
         if self.head == None:
             node = Node(data)
             self.head = node
-            node.next = self.head
             return
         else:
             temp = self.head
-            while temp.next != self.head:
+            while temp.next != None:
                 temp = temp.next
             temp.next = Node(data)
-            temp.next.next = self.head
+            temp.next.next = None
+            temp.next.perv = temp
+
 
 
     def remove(self, data):   ## Remove First accurance of node
         temp = self.head
         while temp.next is not self.head:
             if(temp.next.Get_data() == data):
+                temp2 = temp.next
                 temp.Set_next(temp.next.Get_next())
+                temp.next.perv = temp2.perv
                 return
 
     def traversal(self):   ## Traverse the link list
         temp = self.head
-        while temp is not self.head:
+        while temp is not None:
             print(temp.Get_data(temp))
             temp = temp.Get_next()
         return
@@ -63,13 +67,13 @@ class Circuler_LinkList:
 
 
 def main():
-    dll = Circuler_LinkList()
+    dll = doubly_LinkList()
     dll.add(3)
     dll.add(4)
     dll.add(5)
-    dll.traversal()
-    dll.remove(4)
-    dll.traversal()
+    # dll.traversal()
+    # dll.remove(4)
+    # dll.traversal()
     return
 
 
